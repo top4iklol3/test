@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="sign-wrapper">
+    <div class="sign-box">
+        <div class="sign-top">
+            <h2 class="sign-title">Авторизация</h2>
+            <p class="sign-text">Добро пожаловать, {{ user.username }}!</p>
+        </div>
+        <div class="sign-content">
+            <form method="POST" class="sign-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="sign-btn" type="submit">
+                    <span>Войти</span>
+                </button>
+            </form>
+            <div class="sign-bottom">
+                <a href="{% url 'reg' %}" class="sign-reg-link">Нет аккаунта? Зарегистрируйтесь</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

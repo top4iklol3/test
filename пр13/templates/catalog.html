@@ -1,0 +1,44 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="catalog-container">
+    <div class="catalog-header">
+        <h1>Каталог товаров</h1>
+        <div class="catalog-filters">
+            <div class="filter-group">
+                <select class="filter-select">
+                    <option value="">Сортировать по</option>
+                    <option value="price-asc">Цена по возрастанию</option>
+                    <option value="price-desc">Цена по убыванию</option>
+                    <option value="name">По названию</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="product-overlay">
+                    <a href="{% url 'cart_add' product.id %}" class="add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        В корзину
+                    </a>
+                </div>
+            </div>
+            <div class="product-info">
+                <h2 class="product-name">
+                    <a href="{% url 'singlprod' product.id %}">{{ product.name }}</a>
+                </h2>
+                <div class="product-price">{{ product.price }} ₽</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+    
+    

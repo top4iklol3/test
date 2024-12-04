@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="edit-profile-container">
+    <div class="edit-profile-header">
+        <h2 class="edit-title">Редактировать профиль</h2>
+    </div>
+    
+    <div class="edit-profile-form">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-fields">
+                {% for field in form %}
+                <div class="form-group">
+                    <label class="form-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button class="save-btn" type="submit">Сохранить изменения</button>
+                <a href="{% url 'profile' %}" class="cancel-btn">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

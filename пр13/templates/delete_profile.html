@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="delete-profile-container">
+    <div class="delete-profile-box">
+        <div class="delete-profile-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 class="delete-title">Удалить профиль</h2>
+        <p class="delete-warning">Вы уверены, что хотите удалить свой профиль?</p>
+        <p class="delete-notice">Это действие нельзя будет отменить.</p>
+        
+        <div class="delete-actions">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Удалить профиль</button>
+            </form>
+            <a href="{% url 'profile' %}" class="cancel-btn">Отмена</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

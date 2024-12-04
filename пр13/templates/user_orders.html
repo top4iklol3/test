@@ -1,0 +1,61 @@
+{% extends 'header.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="orders-container">
+    <h2 class="orders-title">Мои заказы</h2>
+    
+    {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Заказ #{{ order.id }}</h3>
+                    <span class="order-date">{{ order.order_date|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="order-details">
+                    <div class="order-info">
+                        <p><strong>Email:</strong> {{ order.customer_email }}</p>
+                        <p><strong>Статус:</strong> {{ order.status }}</p>
+                        <p><strong>Оплачен:</strong> {% if order.paid %}Да{% else %}Нет{% endif %}</p>
+                    </div>
+                    <div class="order-items">
+                        <h4>Товары:</h4>
+                        <div class="items-list">
+                            {% for item in order.items.all %}
+                            <div class="item">
+                                <div class="item-image-container">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="item-image">
+                                    {% endif %}
+                                </div>
+                                <div class="item-info">
+                                    <span class="item-name">{{ item.product.name }}</span>
+                                    <div class="item-details">
+                                        <span class="item-quantity">Количество: {{ item.quantity }} шт.</span>
+                                        <span class="item-price">Цена: {{ item.product.price }} ₽</span>
+                                    </div>
+                                    <div class="item-total">
+                                        Сумма: {{ item.quantity|multiply:item.product.price }} ₽
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="order-total">
+                        <span>Итого:</span>
+                        <strong>{{ item.quantity|multiply:item.product.price }} ₽</strong>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-orders">
+            <p>У вас пока нет заказов</p>
+            <a href="{% url 'catalog' %}" class="shop-button">Перейти в каталог</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="cart-container">
+    <div class="cart-header">
+        <h1>Моя корзина</h1>
+        <div class="cart-steps">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-text">Корзина</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">Оформление</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-text">Готово</div>
+            </div>
+        </div>
+    </div>
+
+    {% if cart|length > 0 %}
+    <div class="cart-content">
+        <div class="cart-items">
+            <div class="cart-actions">
+                <a href="{% url 'cart_clear' %}" class="clear-cart-btn">
+                    <i class="fas fa-trash"></i> Очистить корзину
+                </a>
+            </div>
+            {% for item in cart %}
+            <div class="cart-item">
+                <div class="item-image">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% endif %}
+                </div>
+                
+                <div class="item-details">
+                    <div class="item-name">{{ item.product.name }}</div>
+                    <div class="item-price">{{ item.price }} ₽</div>
+                    <div class="item-quantity">
+                        <a href="{% url 'cart_item_decrease' item.product.id %}" class="qty-btn">-</a>
+                        <span>{{ item.quantity }}</span>
+                        <a href="{% url 'cart_add' item.product.id %}" class="qty-btn">+</a>
+                    </div>
+                </div>
+
+                <div class="item-total">
+                    <div class="total-price">{{ item.total_price }} ₽</div>
+                    <a href="{% url 'cart_remove' item.product.id %}" class="remove-btn">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-header">
+                <h2>Итого</h2>
+            </div>
+            <div class="summary-items">
+                <div class="summary-row">
+                    <span>Товары ({{ cart|length }})</span>
+                    <span>{{ cart.get_total_price }} ₽</span>
+                </div>
+                <div class="summary-row">
+                    <span>Доставка</span>
+                    <span>Бесплатно</span>
+                </div>
+            </div>
+            <div class="summary-total">
+                <span>Итого к оплате</span>
+                <span class="total-amount">{{ cart.get_total_price }} ₽</span>
+            </div>
+            <a class="a90" href="{% url 'create_order' %}">
+                Оформить заказ
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <div class="summary-info">
+                <div class="info-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Безопасная оплата</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-truck"></i>
+                    <span>Быстрая доставка</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+        <div class="empty-cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2>Ваша корзина пуста</h2>
+        <p>Самое время добавить в неё что-нибудь интересное</p>
+        <a href="{% url 'catalog' %}" class="continue-shopping">
+            Перейти в каталог
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

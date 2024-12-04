@@ -1,0 +1,26 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-box">
+        <div class="profile-header">
+            <h2 class="profile-title">Профиль пользователя</h2>
+            <p class="profile-subtitle">Добро пожаловать, {{ username }}!</p>
+        </div>
+        <div class="profile-content">
+            <ul class="profile-details">
+                <li><strong>Пол:</strong> {{ user.gender }}</li>
+                <li><strong>Город:</strong> {{ user.city }}</li>
+                <li><strong>Страна:</strong> {{ user.country }}</li>
+                <li><strong>Улица:</strong> {{ user.street }}</li>
+            </ul>
+            <div class="profile-actions">
+                <a class="profile-edit" href="{% url 'edit_profile' %}">Изменить профиль</a>
+                <a class="profile-orders" href="{% url 'user_orders' %}">Мои заказы</a>
+                <a class="profile-delete" href="{% url 'delete_profile' %}">Удалить профиль</a>
+                <a class="profile-logout" href="{% url 'logout' %}">Выйти из профиля</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

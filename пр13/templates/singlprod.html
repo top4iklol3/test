@@ -1,0 +1,69 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="product-container">
+    <div class="product-breadcrumbs">
+        <a href="{% url 'catalog' %}">Каталог</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>{{ products.name }}</span>
+    </div>
+
+    <div class="product-details">
+        <div class="product-gallery">
+            <div class="main-image">
+                <img src="{{ products.image.url }}" alt="{{ products.name }}">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 class="product-title">{{ products.name }}</h1>
+            
+            <div class="product-price">
+                <span class="price-amount">{{ products.price }} ₽</span>
+                <span class="price-label">цена</span>
+            </div>
+
+            <div class="product-description">
+                <h2>Описание</h2>
+                <p>{{ products.description }}</p>
+            </div>
+
+            <div class="product-actions">
+                <a href="{% url 'cart_add' products.id %}" class="add-to-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    Добавить в корзину
+                </a>
+                <a class="buy-now" href="{% url 'create_order' %}">
+                    <i class="fas fa-bolt"></i>
+                    Купить сейчас
+                </a>
+            </div>
+
+            <div class="product-features">
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <div class="feature-text">
+                        <h3>Быстрая доставка</h3>
+                        <p>2-3 рабочих дня</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <div class="feature-text">
+                        <h3>Возврат</h3>
+                        <p>14 дней на возврат</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="feature-text">
+                        <h3>Гарантия</h3>
+                        <p>12 месяцев</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    

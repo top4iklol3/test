@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>TechnoShop</title>
+</head>
+<body>
+    <header>
+        <div class="profile-nav-wrapper">
+            <div class="profile-logo-container">
+                <img class="profile-logo" src="https://i.imgur.com/gea725J.png" alt="Logo">
+            </div>
+            <div class="profile-search">
+                <form class="profile-search-form" action="{% url 'search' %}">
+                    <input class="profile-search-input" type="text" name="search" placeholder="Поиск товаров...">
+                    <button class="profile-search-button" type="submit">Поиск</button>
+                </form>
+            </div>
+            <nav>
+                <div class="nav-container">
+                    <ul class="nav-tabs">
+                        <li><i class="nav-tab"><a href="{% url 'home' %}">Главная</a></i></li>
+                        <li><i class="nav-tab"><a href="{% url 'catalog' %}">Каталог</a></i></li>
+                        <li class="nav-tab"><a href="{% url 'cart_detail' %}">Корзина {{cart|length}}</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li><i class="nav-tab"><a href="{% url 'profile' %}">Профиль</a></i></li>
+                        {% else %}
+                            <li><i class="nav-tab"><a href="{% url 'auth' %}">Войти</a></i></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    
+
+
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

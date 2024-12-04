@@ -1,0 +1,24 @@
+{% extends "header.html" %}
+
+{% block content %}
+<div class="register-wrapper">
+    <div class="register-box">
+        <div class="register-top">
+            <h2 class="register-title">Регистрация</h2>
+            <p class="register-text">Создайте свой аккаунт</p>
+        </div>
+        <div class="register-content">
+            <form method="POST" class="register-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="register-btn" type="submit">
+                    <span>Зарегистрироваться</span>
+                </button>
+            </form>
+            <div class="register-bottom">
+                <a href="{% url 'auth' %}" class="register-sign-link">Уже есть аккаунт? Войти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

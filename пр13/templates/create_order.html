@@ -1,0 +1,62 @@
+{% extends 'header.html' %}
+
+
+{% block content %}
+<div class="order-container">
+    <h2 class="order-title">Оформление заказа</h2>
+
+    {% if messages %}
+    <div class="alert alert-danger">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="order-content">
+        <!-- Левая колонка с товарами -->
+        <div class="cart-summary">
+            <h4 class="summary-title">Ваш заказ</h4>
+            <div class="cart-items">
+                {% for item in cart %}
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="item-details">
+                        <h5>{{ item.product.name }}</h5>
+                        <div class="item-meta">
+                            <span>Количество: {{ item.quantity }}</span>
+                            <span>{{ item.price }} ₽</span>
+                        </div>
+                    </div>
+                    <div class="item-total">
+                        {{ item.total_price }} ₽
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="cart-total">
+                <span>Итого:</span>
+                <strong>{{ cart.get_total_price }} ₽</strong>
+            </div>
+        </div>
+
+        <!-- Правая колонка с формой -->
+        <div class="order-form">
+            <h4 class="form-title">Данные для доставки</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="submit-button">
+                    Подтвердить заказ
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
